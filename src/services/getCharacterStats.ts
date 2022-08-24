@@ -1,6 +1,6 @@
-import { Character } from "../types/characters";
+import { CharacterStats } from "../types/characterStats";
 
-const getAll = async (url: string): Promise<Character> => {
+const getAll = async (url: string): Promise<CharacterStats> => {
   const response = await (
     await fetch(url)
   ).json();

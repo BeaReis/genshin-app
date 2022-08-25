@@ -1,10 +1,8 @@
-import { Character } from "../types/characters";
-
-const getAll = async (url: string): Promise<Character> => {
+const getAll = async (): Promise<string[]> => {
+  const url = "https://api.genshin.dev/characters";
   const response = await (
     await fetch(url)
   ).json();
-  console.log(response);
   return response;
 };
 

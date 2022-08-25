@@ -1,6 +1,6 @@
 import { CharacterStats } from "../types/characterStats";
 
-const getAll = async (url: string): Promise<CharacterStats> => {
+const getCharacterStats = async (url: string): Promise<CharacterStats> => {
   const response = await (
     await fetch(url)
   ).json();
@@ -8,4 +8,4 @@ const getAll = async (url: string): Promise<CharacterStats> => {
   return response;
 };
 
-export default getAll;
+export default getCharacterStats;

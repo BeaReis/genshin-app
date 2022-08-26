@@ -3,7 +3,7 @@ import './Search.sass';
 
 const Search: FC = () => {
   return (
-    <div className="wrapper">
+    <div className="wrapper-input">
       <label className="label">
         SELECT OR SEARCH A CHARACTER
         <input

@@ -16,6 +16,7 @@ const Card: FC<Props> = ({ characterId, characterInfo }: Props) => {
   const affiliation = characterInfo.affiliation;
   const birthday = characterInfo.birthday;
   const rarity = characterInfo.rarity;
+  
   let stars = "";
   if (rarity === 5) stars = "⭐️⭐️⭐️⭐️⭐️" ;
   else stars = "⭐️⭐️⭐️⭐️";

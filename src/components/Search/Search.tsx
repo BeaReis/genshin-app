@@ -1,26 +1,16 @@
-import { FC, useEffect, useState } from "react";
-import getAll from "../../services/getAll";
+import { FC, useState } from "react";
 import './Search.sass';
 
 type Props = {
-  setCharacters: (characters: string[]) => void
+  setFiltered: (characters: string) => void
   characters: string[]
 }
 
-const Search: FC<Props> = ({ setCharacters, characters }: Props) => {
-  const [filtered, setFiltered] = useState<string>("")
-  const handleFilter = (filter: string) => {
-    setFiltered(filter)
-    //TODO: Fix character filter. Must filter as user types letter (onChange)
-  }
+const Search: FC<Props> = ({ setFiltered, characters }: Props) => {
 
-  useEffect(() => {
-    async function fetchData() {
-      return setCharacters(await getAll());
-    }
-    if (!characters.length) fetchData();
-  });
-  
+  const handleFilter = (filter: string) => {
+    setFiltered(filter);
+  }
 
   return (
     <div className="wrapper-input">
@@ -29,7 +19,6 @@ const Search: FC<Props> = ({ setCharacters, characters }: Props) => {
         <input
           id="search"
           type="text"
-          value={filtered}
           placeholder="Insert character name"
           className="input"
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleFilter(event.target.value)}

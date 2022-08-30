@@ -1,4 +1,4 @@
-const getAll = async (): Promise<string[]> => {
+const getAllCharacters = async (): Promise<string[]> => {
   const url = "https://api.genshin.dev/characters";
   const response = await (
     await fetch(url)
@@ -6,4 +6,4 @@ const getAll = async (): Promise<string[]> => {
   return response;
 };
 
-export default getAll;
+export default getAllCharacters;

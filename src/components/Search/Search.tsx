@@ -8,15 +8,15 @@ type Props = {
 }
 
 const Search: FC<Props> = ({ setCharacters, characters }: Props) => {
-  const [allCharacters, setAllCharacters] = useState<string[]>([])
+  const [filtered, setFiltered] = useState<string>("")
   const handleFilter = (filter: string) => {
+    setFiltered(filter)
     //TODO: Fix character filter. Must filter as user types letter (onChange)
   }
 
   useEffect(() => {
     async function fetchData() {
-      
-      return setAllCharacters(await getAll());
+      return setCharacters(await getAll());
     }
     if (!characters.length) fetchData();
   });
@@ -29,6 +29,7 @@ const Search: FC<Props> = ({ setCharacters, characters }: Props) => {
         <input
           id="search"
           type="text"
+          value={filtered}
           placeholder="Insert character name"
           className="input"
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleFilter(event.target.value)}

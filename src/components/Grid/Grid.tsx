@@ -6,13 +6,10 @@ type Props = {
   characters: string[]
 }
 
-
 const Grid: FC<Props> = ({ setCharacterId, characters }: Props) => {
-
   const apiUrl = "https://api.genshin.dev/characters";
 
-
-  // In case 
+  // In case icon-big doesn't exist, this function replaces src with secondary api path
   const handleImageError = (event: SyntheticEvent<HTMLImageElement, Event>) => {
     event.currentTarget.src = event.currentTarget.src.replace("-big", "");
   }

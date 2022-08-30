@@ -19,7 +19,7 @@ export interface constellation {
     level: number
 }
 
-export interface CharacterStats {
+export default interface CharacterStats {
     name: string
     vision: string
     weapon: string

@@ -1,10 +1,10 @@
-import { CharacterStats } from "../types/characterStats";
+import CharacterStats from "../types/characterStats";
 
-const getCharacterStats = async (url: string): Promise<CharacterStats> => {
+const getCharacterStats = async (id: string): Promise<CharacterStats> => {
+  const url = "https://api.genshin.dev/characters";
   const response = await (
-    await fetch(url)
+    await fetch(`${url}/${id}`)
   ).json();
-  console.log(response);
   return response;
 };
 

@@ -1,3 +1,73 @@
+$color-dark: #091523
+$color-base: #112843
+$cryo: #9DDBE5
+$pyro: #D16C32
+$geo: #F4D55D
+$anemo: #65DDB1
+$hydro: #0ED8F4
+$dendro: #75AA10
+$electro: #D39AF2
+
+.card
+    margin: 0 0 0 50px
+
+.card-wrapper
+    position: relative
+
 .img-portrait
-    height: 480px
-    margin: 0 0 0 50px 
+    position: absolute
+    top: -50px
+    right: -150px
+    height: 450px
+    z-index: 10
+    overflow: hidden
+
+.card-info
+    background-color: $color-dark
+    width: 400px
+    height: 340px
+    border-radius: 10px
+    padding: 20px 30px
+    z-index: 1
+    text-transform: capitalize
+
+.title-name
+    font-family: 'Anton', sans-serif
+    font-size: 36px
+    color: white
+    margin-bottom: 8px
+
+.text-info
+    display: flex
+    font-family: 'Anton', sans-serif
+    font-size: 18px
+    color: white
+    margin: 12.5px 0
+
+.img-element,.pyro,.cryo,.hydro,.electro,.anemo,.geo,.dendro
+    margin-left: 5px
+
+.img-element
+    width: 20px
+    height: 20px
+
+.pyro
+    color: $pyro
+
+.cryo
+    color: $cryo
+
+.hydro
+    color: $hydro
+
+.electro
+    color: $electro
+
+.anemo
+    color: $anemo
+
+.geo
+    color: $geo
+
+.dendro
+    color: $dendro

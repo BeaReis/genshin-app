@@ -1,24 +1,17 @@
-import { FC, SyntheticEvent, useEffect, useState } from "react";
-import getAll from "../../services/getAll";
+import { FC, SyntheticEvent } from "react";
 import "./Grid.sass";
 
 type Props = {
   setCharacterId: (characterId: string) => void
+  characters: string[]
 }
 
 
-const Grid: FC<Props> = ({ setCharacterId }: Props) => {
-  const [characters, setCharacters] = useState<string[]>([]);
+const Grid: FC<Props> = ({ setCharacterId, characters }: Props) => {
+
   const apiUrl = "https://api.genshin.dev/characters";
 
-  async function fetchData() {
-    return setCharacters(await getAll());
-  }
 
-  useEffect(() => {
-    if (!characters.length) fetchData();
-  });
-  
   // In case 
   const handleImageError = (event: SyntheticEvent<HTMLImageElement, Event>) => {
     event.currentTarget.src = event.currentTarget.src.replace("-big", "");

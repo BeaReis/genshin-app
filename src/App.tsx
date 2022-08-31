@@ -1,9 +1,9 @@
 import './App.sass';
-import Home from './pages/Home';
+import Index from './pages';
 
 function App() {
   return (
-    <Home />
+    <Index />
   );
 }
 

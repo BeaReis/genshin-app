@@ -7,11 +7,10 @@ import getAllCharacters from "../services/getAllCharacters";
 import getCharacterStats from "../services/getCharacterStats";
 import CharacterStats from "../types/characterStats";
 
-//TODO: Image if filter name doesn't exist
-
-
+//TODO: Suggestion: Move all logic(functions) to parent component, leaving children to be UI components only
 const Characters: FC = () => {
   const [characters, setCharacters] = useState<string[]>([]);
+  const [show, setShow] = useState<Boolean>(false);
   const [filtered, setFiltered] = useState<string>("");
   const [characterId, setCharacterId] = useState<string>("");
   const [characterInfo, setCharacterInfo] = useState<CharacterStats>({
@@ -30,9 +29,12 @@ const Characters: FC = () => {
     vision_key: "",
     weapon_type: "",
   });
-  let filteredCharacters = characters;
 
-  if(filtered) filteredCharacters = characters.filter(character => character.startsWith(filtered));
+  let filteredCharacters = characters;
+  if (filtered)
+    filteredCharacters = characters.filter((character) =>
+      character.startsWith(filtered)
+    );
 
   useEffect(() => {
     async function fetchNames() {
@@ -42,19 +44,29 @@ const Characters: FC = () => {
   });
 
   useEffect(() => {
-    if (!characterId) return
+    if (!characterId) return;
     async function fetchCharacterInfo() {
       return setCharacterInfo(await getCharacterStats(characterId));
     }
-    if(characterId !== "") fetchCharacterInfo()
+    if (characterId !== "") fetchCharacterInfo();
   }, [characterId]);
 
   return (
-    <>
-      <Search characters={characters} setFiltered={setFiltered} />
+    <>0
+      <Search setFiltered={setFiltered} />
       <Wrapper>
-        <Grid characters={filteredCharacters} setCharacterId={setCharacterId} />
-        <Card characterId={characterId} characterInfo={characterInfo} />
+        <Grid
+          characters={filteredCharacters}
+          characterId={characterId}
+          setCharacterId={setCharacterId}
+          show={show}
+          setShow={setShow}
+        />
+        <Card
+          characterId={characterId}
+          characterInfo={characterInfo}
+          show={show}
+        />
       </Wrapper>
     </>
   );

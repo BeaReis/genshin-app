@@ -5,9 +5,10 @@ import "./Card.sass";
 type Props = {
   characterId: string;
   characterInfo: CharacterStats;
+  show: Boolean;
 };
 
-const Card: FC<Props> = ({ characterId, characterInfo }: Props) => {
+const Card: FC<Props> = ({ characterId, characterInfo, show }: Props) => {
   const [size, setSize] = useState<string>("");
   const vision = characterInfo.vision.toLowerCase();
   const weapon = characterInfo.weapon;
@@ -17,6 +18,9 @@ const Card: FC<Props> = ({ characterId, characterInfo }: Props) => {
   const birthday = characterInfo.birthday;
   const rarity = characterInfo.rarity;
   
+  let modifier = "";
+  if (show) modifier = "card--show";
+
   let stars = "";
   if (rarity === 5) stars = "⭐️⭐️⭐️⭐️⭐️" ;
   else stars = "⭐️⭐️⭐️⭐️";
@@ -29,7 +33,7 @@ const Card: FC<Props> = ({ characterId, characterInfo }: Props) => {
     event.currentTarget.src = src.replace(src, `${characterId}-portrait.png`);
   };
 
-  const handleLoad = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+  const handleImageLoad = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const imgWidth = event.currentTarget.clientWidth;
   
     if (imgWidth >= 500) return setSize("giga");
@@ -39,7 +43,7 @@ const Card: FC<Props> = ({ characterId, characterInfo }: Props) => {
   }
 
   return (
-    <div className="card">
+    <div className={`card ${modifier}`}>
       {characterId && (
         <div className="card-wrapper">
           <div className="card-info">
@@ -68,7 +72,7 @@ const Card: FC<Props> = ({ characterId, characterInfo }: Props) => {
             className={`img-portrait ${size}`}
             src={`${apiURL}/${characterId}/portrait`}
             alt="character"
-            onLoad={handleLoad}
+            onLoad={handleImageLoad}
             onError={handleImageError}
           />
         </div>

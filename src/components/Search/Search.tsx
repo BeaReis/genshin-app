@@ -1,12 +1,11 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import './Search.sass';
 
 type Props = {
   setFiltered: (characters: string) => void
-  characters: string[]
 }
 
-const Search: FC<Props> = ({ setFiltered, characters }: Props) => {
+const Search: FC<Props> = ({ setFiltered }: Props) => {
 
   const handleFilter = (filter: string) => {
     setFiltered(filter);

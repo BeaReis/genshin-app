@@ -17,6 +17,14 @@ const Card: FC<Props> = ({ characterId, characterInfo, show }: Props) => {
   const affiliation = characterInfo.affiliation;
   const birthday = characterInfo.birthday;
   const rarity = characterInfo.rarity;
+  let date: string;
+  if (birthday) {
+    const [year, month, day] = birthday.split('-');
+    date = [day, month].join('/');
+  } else {
+    date = "Unknown";
+  }
+  
 
   let modifier = "";
   if (show) modifier = "card--show";
@@ -41,7 +49,7 @@ const Card: FC<Props> = ({ characterId, characterInfo, show }: Props) => {
     event: React.SyntheticEvent<HTMLImageElement, Event>
   ) => {
     const imgWidth = event.currentTarget.clientWidth;
-    
+
     if (imgWidth >= 500) return setSize("giga");
     else if (imgWidth >= 380 && imgWidth < 500) return setSize("big");
     else if (imgWidth >= 290 && imgWidth < 380) return setSize("medium");
@@ -72,7 +80,7 @@ const Card: FC<Props> = ({ characterId, characterInfo, show }: Props) => {
               Constellation: <span className={vision}>{constellation}</span>
             </p>
             <p className="text-info">
-              Birthday: <span className={vision}>{birthday}</span>
+              Birthday: <span className={vision}>{date}</span>
             </p>
           </div>
           <img

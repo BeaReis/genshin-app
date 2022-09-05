@@ -9,12 +9,16 @@ $dendro: #75AA10
 $electro: #D39AF2
 
 .card
-    margin: 0 0 0 50px
     position: relative
     display: none
 
 .card--show
     display: flex
+    margin: 0 0 0 50px
+   
+.card-wrapper
+        display: flex
+        width: 100%
 
 .img-portrait
     position: absolute
@@ -28,7 +32,7 @@ $electro: #D39AF2
 .medium
     right: -200px
 .big
-    right: -275px
+    right: -250px
 .giga
     top: -25px
     right: -275px
@@ -43,7 +47,7 @@ $electro: #D39AF2
     z-index: 1
     text-transform: capitalize
 
-.title-name
+.title
     font-family: 'Anton', sans-serif
     font-size: 32px
     color: white
@@ -64,7 +68,6 @@ $electro: #D39AF2
 .img-element
     width: 20px
     height: 20px
-
 .pyro
     color: $pyro
 .cryo
@@ -79,6 +82,40 @@ $electro: #D39AF2
     color: $geo
 .dendro
     color: $dendro
-
 .star
     width: 20px
+
+@media (max-width: 1024px)
+    .card--show
+        margin: 100px 0 50px 0px
+
+@media (max-width: 900px)
+    .card--show
+        margin: 50px 0 50px 0px
+    .card-wrapper
+        display: flex
+        width: 100%
+        flex-direction: column-reverse
+        justify-content: space-between
+        align-items: center
+    .img-portrait
+        position: inherit
+        top: 0px
+        height: 400px
+        margin-bottom: 25px
+@media (max-width: 600px)
+    .card-info
+        width: 250px
+        height: 300px
+    .title
+        font-size: 24px
+        margin-bottom: 4px
+    .text-info
+        font-size: 14px
+        width: 175px
+    .img-portrait
+        height: 35  0px
+    .big
+        height: 350px
+    .giga
+        height: 300px

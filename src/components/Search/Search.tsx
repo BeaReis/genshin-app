@@ -13,16 +13,16 @@ const Search: FC<Props> = ({ setFiltered }: Props) => {
 
   return (
     <div className="wrapper-input">
-      <label className="label">
+      <label className="label" htmlFor="search">
         SELECT OR SEARCH A CHARACTER
-        <input
+      </label>
+      <input
           id="search"
           type="text"
           placeholder="Insert character name"
           className="input"
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleFilter(event.target.value)}
         ></input>
-      </label>
     </div>
   );
 };

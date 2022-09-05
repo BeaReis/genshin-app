@@ -5,8 +5,8 @@ $color-light: #a0cdff
 .grid
     display: grid
     width: 400px
-    height: 380px
-    gap: 32px 28px
+    height: 360px
+    gap: 24px 24px
     grid-template: repeat(3, 1fr) / repeat(3, 1fr)
     overflow-y: scroll
     &::-webkit-scrollbar
@@ -52,3 +52,11 @@ $color-light: #a0cdff
     max-height: 100%
     object-fit: contain
 
+@media (max-width: 600px)
+    .grid
+        width: 325px
+        height: 305px
+        gap: 20px 15px
+    .container-icon
+        width: 85px
+        height: 85px

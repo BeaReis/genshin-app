@@ -1,17 +1,19 @@
 .wrapper-input
     display: flex
     flex-direction: column
-    justify-items: center
+    justify-content: center
     align-items: center
     font-family: 'Red Hat Text', sans-serif
-    margin: 100px 0 0 0
+    margin: 150px 0 0 0
 
 .label
-    display: block
     font-size: 24px
     font-weight: 400
     text-align: center
     color: white
+    @media (max-width: 600px)
+        font-size: 20px
+
 
 .input
     display: block
@@ -22,3 +24,7 @@
     border: 1px solid
     border-radius: 2.5px
     margin-top: 30px
+
+    @media (max-width: 600px)
+        width: 325px
+        

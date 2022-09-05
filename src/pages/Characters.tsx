@@ -52,7 +52,7 @@ const Characters: FC = () => {
   }, [characterId]);
 
   return (
-    <>0
+    <>
       <Search setFiltered={setFiltered} />
       <Wrapper>
         <Grid

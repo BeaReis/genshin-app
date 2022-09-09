@@ -25,7 +25,6 @@ const Card: FC<Props> = ({ characterId, characterInfo, show }: Props) => {
     date = "Unknown";
   }
   
-
   let modifier = "";
   if (show) modifier = "card--show";
 

@@ -45,11 +45,11 @@ const Characters: FC = () => {
 
   useEffect(() => {
     if (!characterId) return;
+    if (characterId !== "") fetchCharacterInfo();
     async function fetchCharacterInfo() {
       return setCharacterInfo(await getCharacterStats(characterId));
     }
-    if (characterId !== "") fetchCharacterInfo();
-  }, [characterId]);
+  }, [characterId, characterInfo]);
 
   return (
     <>

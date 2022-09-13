@@ -4,8 +4,8 @@ import "./Grid.sass";
 type Props = {
   setCharacterId: (characterId: string) => void;
   characterId: string;
-  setShow: (show: Boolean) => void;
-  show: Boolean;
+  setShow: (show: boolean) => void;
+  show: boolean;
   characters: string[];
 };
 

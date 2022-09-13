@@ -10,15 +10,16 @@ $electro: #D39AF2
 
 .card
     position: relative
-    display: none
+    display: flex
+    visibility: hidden
 
 .card--show
-    display: flex
+    visibility: visible
     margin: 0 0 0 50px
-   
+
 .card-wrapper
-        display: flex
-        width: 100%
+    display: flex
+    width: 100%
 
 .img-portrait
     position: absolute
@@ -54,12 +55,14 @@ $electro: #D39AF2
     margin-bottom: 8px
 
 .text-info
+    position: relative
     display: flex
     font-family: 'Anton', sans-serif
     font-size: 16px
     color: white
     margin: 12.5px 0
     width: 220px
+    z-index: 20
 
 .img-element,.pyro,.cryo,.hydro,.electro,.anemo,.geo,.dendro
     margin-left: 5px
@@ -113,7 +116,7 @@ $electro: #D39AF2
         font-size: 14px
         width: 175px
     .img-portrait
-        height: 35  0px
+        height: 35 0px
     .big
         height: 350px
     .giga

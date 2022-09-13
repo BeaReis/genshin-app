@@ -1,14 +1,22 @@
-import { FC, SyntheticEvent, useState } from "react";
+import { FC, SyntheticEvent, useState, useEffect } from "react";
 import CharacterStats from "../../types/characterStats";
 import "./Card.sass";
 
 type Props = {
   characterId: string;
   characterInfo: CharacterStats;
-  show: Boolean;
+  display: string;
+  setDisplay: (display: string) => void;
+  setIsLoading: (isLoading: boolean) => void;
 };
 
-const Card: FC<Props> = ({ characterId, characterInfo, show }: Props) => {
+const Card: FC<Props> = ({
+  characterId,
+  characterInfo,
+  display,
+  setDisplay,
+  setIsLoading,
+}: Props) => {
   const [size, setSize] = useState<string>("");
   const vision = characterInfo.vision.toLowerCase();
   const weapon = characterInfo.weapon;
@@ -19,21 +27,18 @@ const Card: FC<Props> = ({ characterId, characterInfo, show }: Props) => {
   const rarity = characterInfo.rarity;
   let date: string;
   if (birthday) {
-    const [year, month, day] = birthday.split('-');
-    date = [day, month].join('/');
+    const [year, month, day] = birthday.split("-");
+    date = [day, month].join("/");
   } else {
     date = "Unknown";
   }
-  
-  let modifier = "";
-  if (show) modifier = "card--show";
+  const apiURL: string = "https://api.genshin.dev/characters";
+  const visionIconURL: string = `https://api.genshin.dev/elements/${vision}/icon`;
+  const characterImg = `${apiURL}/${characterId}/portrait`;
 
   let stars = "";
   if (rarity === 5) stars = "⭐️⭐️⭐️⭐️⭐️";
   else stars = "⭐️⭐️⭐️⭐️";
-
-  const apiURL: string = "https://api.genshin.dev/characters";
-  const element: string = `https://api.genshin.dev/elements/${vision}/icon`;
 
   const handleImageError = (event: SyntheticEvent<HTMLImageElement, Event>) => {
     const src = event.currentTarget.src;
@@ -44,26 +49,27 @@ const Card: FC<Props> = ({ characterId, characterInfo, show }: Props) => {
       );
   };
 
-  const handleImageLoad = (
-    event: React.SyntheticEvent<HTMLImageElement, Event>
-  ) => {
-    const imgWidth = event.currentTarget.clientWidth;
+  const handleImageLoad = (event: React.SyntheticEvent<HTMLImageElement>) => {
+    const width = event.currentTarget.clientWidth;
 
-    if (imgWidth >= 500) return setSize("giga");
-    else if (imgWidth >= 380 && imgWidth < 500) return setSize("big");
-    else if (imgWidth >= 290 && imgWidth < 380) return setSize("medium");
-    else return setSize("small");
+    if (width >= 500) setSize("giga");
+    else if (width >= 380 && width < 500) setSize("big");
+    else if (width >= 290 && width < 380) setSize("medium");
+    else setSize("small");
+
+    setIsLoading(false);
+    setDisplay("card--show"); 
   };
 
   return (
-    <div className={`card ${modifier}`}>
+    <div className={`card ${display}`}>
       {characterId && (
         <div className="card-wrapper">
           <div className="card-info">
             <p className="title">{characterId}</p>
             <p className="text-info">
               Vision:<span className={vision}>{vision}</span>
-              <img className="img-element" src={element} alt={vision} />
+              <img className="img-element" src={visionIconURL} alt={vision} />
             </p>
             <p className="text-info">
               Weapon: <span className={vision}>{weapon}</span>
@@ -85,7 +91,7 @@ const Card: FC<Props> = ({ characterId, characterInfo, show }: Props) => {
           <img
             id="portrait"
             className={`img-portrait ${size}`}
-            src={`${apiURL}/${characterId}/portrait`}
+            src={characterImg}
             alt={`${characterId} full body`}
             onLoad={handleImageLoad}
             onError={handleImageError}

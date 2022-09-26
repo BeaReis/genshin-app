@@ -13,7 +13,6 @@ const Characters: FC = () => {
   const [characters, setCharacters] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [show, setShow] = useState<boolean>(false);
-  const [display, setDisplay] = useState<string>("");
   const [filtered, setFiltered] = useState<string>("");
   const [characterId, setCharacterId] = useState<string>("");
   const [characterInfo, setCharacterInfo] = useState<CharacterStats>({
@@ -39,35 +38,34 @@ const Characters: FC = () => {
       character.startsWith(filtered)
     );
 
-  useEffect(() => {
-    async function fetchNames() {
-      return setCharacters(await getAllCharacters());
-    }
-    if (!characters.length) fetchNames();
-  },[characters]);
+  const fetchNames = async () => {
+    const allCharacters = await getAllCharacters();
+    setCharacters(allCharacters);
+  };
+  if (!characters.length) fetchNames();
 
   useEffect(() => {
     if (!characterId) return;
-    if (characterId !== "") fetchCharacterInfo();
-    async function fetchCharacterInfo() {
-      return setCharacterInfo(await getCharacterStats(characterId));
-    }
+    const fetchCharacterInfo = async () => {
+      const characterStats = await getCharacterStats(characterId);
+      setCharacterInfo(characterStats);
+    };
+    fetchCharacterInfo();
   }, [characterId]);
 
   useEffect(() => {
     const id = characterId.replace("-", " ");
     const name = characterInfo.name.toLowerCase();
-
-    if(id.includes("traveler")) {
-      if(!id.includes(name)) {
-        setDisplay("");
+    if (id.includes("traveler")) {
+      if (!id.includes(name)) {
+        setShow(false);
         setIsLoading(true);
       }
-    } else if(!name.includes(id)) {
-      setDisplay("");
+    } else if (!name.includes(id)) {
+      setShow(false);
       setIsLoading(true);
     }
-  }, [characterId, characterInfo]);
+  }, [characterId, characterInfo])
 
   return (
     <>
@@ -77,17 +75,17 @@ const Characters: FC = () => {
           characters={filteredCharacters}
           characterId={characterId}
           setCharacterId={setCharacterId}
+          setShow={setShow}
+          setIsLoading={setIsLoading}
+        />
+        <Loader isLoading={isLoading} />
+        <Card
           show={show}
           setShow={setShow}
+          setIsLoading={setIsLoading}
+          characterId={characterId}
+          characterInfo={characterInfo}
         />
-          <Loader isLoading={isLoading}/>
-          <Card
-            display={display}
-            setDisplay={setDisplay}
-            setIsLoading={setIsLoading}
-            characterId={characterId}
-            characterInfo={characterInfo}
-          />
       </Wrapper>
     </>
   );

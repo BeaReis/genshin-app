@@ -10,11 +10,10 @@ $electro: #D39AF2
 
 .card
     position: relative
-    display: flex
-    visibility: hidden
+    display: none
 
 .card--show
-    visibility: visible
+    display: flex
     margin: 0 0 0 50px
 
 .card-wrapper
@@ -27,6 +26,15 @@ $electro: #D39AF2
     height: 450px
     z-index: 10
     overflow: hidden
+    color: white
+
+.icon
+    display: flex
+    max-width: 100px
+    height: 100px
+    object-fit: contain
+    right: 10px
+    top: 10px
 
 .small
     right: -125px
@@ -105,6 +113,9 @@ $electro: #D39AF2
         top: 0px
         height: 400px
         margin-bottom: 25px
+    .img-portrait.icon
+        height: 200px
+        margin-bottom: 50px
 @media (max-width: 600px)
     .card-info
         width: 250px

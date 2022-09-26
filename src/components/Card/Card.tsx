@@ -1,20 +1,20 @@
-import { FC, SyntheticEvent, useState, useEffect } from "react";
+import React, { FC, SyntheticEvent, useState, useEffect } from "react";
 import CharacterStats from "../../types/characterStats";
 import "./Card.sass";
 
 type Props = {
   characterId: string;
   characterInfo: CharacterStats;
-  display: string;
-  setDisplay: (display: string) => void;
-  setIsLoading: (isLoading: boolean) => void;
+  show: boolean;
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const Card: FC<Props> = ({
   characterId,
   characterInfo,
-  display,
-  setDisplay,
+  show,
+  setShow,
   setIsLoading,
 }: Props) => {
   const [size, setSize] = useState<string>("");
@@ -25,40 +25,47 @@ const Card: FC<Props> = ({
   const affiliation = characterInfo.affiliation;
   const birthday = characterInfo.birthday;
   const rarity = characterInfo.rarity;
+  const apiURL: string = "https://api.genshin.dev/characters";
+  const visionIconURL: string = `https://api.genshin.dev/elements/${vision}/icon`;
+  const characterImg = `${apiURL}/${characterId}/portrait`;
   let date: string;
+  let display = "";
+  let stars = "";
+
   if (birthday) {
     const [year, month, day] = birthday.split("-");
     date = [day, month].join("/");
   } else {
     date = "Unknown";
   }
-  const apiURL: string = "https://api.genshin.dev/characters";
-  const visionIconURL: string = `https://api.genshin.dev/elements/${vision}/icon`;
-  const characterImg = `${apiURL}/${characterId}/portrait`;
+  if (show) display = "card--show";
 
-  let stars = "";
   if (rarity === 5) stars = "⭐️⭐️⭐️⭐️⭐️";
   else stars = "⭐️⭐️⭐️⭐️";
 
   const handleImageError = (event: SyntheticEvent<HTMLImageElement, Event>) => {
     const src = event.currentTarget.src;
-    if (characterId === "yae-miko")
-      event.currentTarget.src = src.replace(
-        src,
-        `https://raw.githubusercontent.com/BeaReis/genshin-app/main/public/yae-miko-portrait.png`
-      );
+    event.currentTarget.src = src.replace(
+      src,
+      `${apiURL}/${characterId}/icon-big`
+    );
   };
 
   const handleImageLoad = (event: React.SyntheticEvent<HTMLImageElement>) => {
     const width = event.currentTarget.clientWidth;
+    const src = event.currentTarget.src;
 
-    if (width >= 500) setSize("giga");
-    else if (width >= 380 && width < 500) setSize("big");
-    else if (width >= 290 && width < 380) setSize("medium");
-    else setSize("small");
-
+    if (src.includes("portrait")) {
+      if (width >= 500) setSize("giga");
+      else if (width >= 380 && width < 500) setSize("big");
+      else if (width >= 290 && width < 380) setSize("medium");
+      else setSize("small");
+    } else {
+      setSize("icon");
+    }
+    
     setIsLoading(false);
-    setDisplay("card--show"); 
+    setShow(true);
   };
 
   return (

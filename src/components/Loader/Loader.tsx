@@ -2,7 +2,7 @@ import { FC } from "react";
 import "./Loader.sass";
 
 type Props = {
-  isLoading: Boolean;
+  isLoading: boolean;
 }
 
 const Loader: FC<Props> = ({ isLoading }: Props) => {

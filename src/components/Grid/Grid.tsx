@@ -1,15 +1,15 @@
-import { FC, SyntheticEvent } from "react";
+import React, { FC, SyntheticEvent } from "react";
 import "./Grid.sass";
 
 type Props = {
-  setCharacterId: (characterId: string) => void;
+  setCharacterId: React.Dispatch<React.SetStateAction<string>>;
   characterId: string;
-  setShow: (show: boolean) => void;
-  show: boolean;
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   characters: string[];
 };
 
-const Grid: FC<Props> = ({ setCharacterId, characterId, setShow, show, characters }: Props) => {
+const Grid: FC<Props> = ({ setCharacterId, characterId, setShow, setIsLoading, characters }: Props) => {
   const apiUrl = "https://api.genshin.dev/characters";
 
   // In case icon-big doesn't exist, this function replaces src with secondary api path
@@ -20,10 +20,11 @@ const Grid: FC<Props> = ({ setCharacterId, characterId, setShow, show, character
   const handleIconClick = (character: string) => {
     setCharacterId(character);
 
-    if(!characterId) setShow(!show);
+    if(!characterId) setShow((prevState) => !prevState);
     if(characterId === character) {
       setCharacterId("");
-      setShow(!show);
+      setIsLoading(false);
+      setShow((prevState) => !prevState);
     }
   };
 

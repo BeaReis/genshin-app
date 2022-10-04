@@ -103,6 +103,7 @@ const Card: FC<Props> = ({
             onLoad={handleImageLoad}
             onError={handleImageError}
           />
+          {size==="icon" && <p className="text-icon">Full body image not available!</p>}
         </div>
       )}
     </div>
